@@ -1,0 +1,32 @@
+[
+	{
+		"id": "19d426b5-8516-4f40-b20d-4435cb8e7f60",
+		"group_id": "5dd34662-5d91-4a86-987b-658a8d4ce4be",
+		"description": "NBA Game",
+		"amount": "150.12"
+	},
+	{
+		"id": "ee0db2c3-0400-48f4-a22b-4f0041a7b98c",
+		"group_id": "5dd34662-5d91-4a86-987b-658a8d4ce4be",
+		"description": "9/11 Museum",
+		"amount": "45.00"
+	},
+	{
+		"id": "d754162e-42f5-4749-a0e1-412e1517234a",
+		"group_id": "720d7960-009b-45a4-8fde-5333121a5299",
+		"description": "Breakfast",
+		"amount": "18.56"
+	},
+	{
+		"id": "118fa39f-e3e4-4d13-aef1-a6568ea6cd3b",
+		"group_id": "93f8336a-91ff-4a60-ae19-33e38c149929",
+		"description": "Potatoes",
+		"amount": "1.39"
+	},
+	{
+		"id": "cb10f8ea-5b75-41c8-b177-a8de5c86bc9d",
+		"group_id": "93f8336a-91ff-4a60-ae19-33e38c149929",
+		"description": "Salmon",
+		"amount": "4.35"
+	}
+]

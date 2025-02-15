@@ -1,0 +1,20 @@
+[
+	{
+		"id": "5dd34662-5d91-4a86-987b-658a8d4ce4be",
+		"name": "Trip to America",
+		"category": "holiday",
+		"status": "ongoing"
+	},
+	{
+		"id": "720d7960-009b-45a4-8fde-5333121a5299",
+		"name": "Toby Carvery",
+		"category": "food",
+		"status": "ongoing"
+	},
+	{
+		"id": "93f8336a-91ff-4a60-ae19-33e38c149929",
+		"name": "Food Shopping",
+		"category": "home",
+		"status": "settled up"
+	}
+]
