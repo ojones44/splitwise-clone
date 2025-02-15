@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.HTTP_STATUS = void 0;
+var HTTP_STATUS;
+(function (HTTP_STATUS) {
+    HTTP_STATUS[HTTP_STATUS["OK"] = 200] = "OK";
+    HTTP_STATUS[HTTP_STATUS["CREATED"] = 201] = "CREATED";
+    HTTP_STATUS[HTTP_STATUS["BAD"] = 400] = "BAD";
+    HTTP_STATUS[HTTP_STATUS["UNAUTHORIZED"] = 401] = "UNAUTHORIZED";
+    HTTP_STATUS[HTTP_STATUS["NOT_FOUND"] = 404] = "NOT_FOUND";
+    HTTP_STATUS[HTTP_STATUS["UNPROCESSABLE_ENTITY"] = 422] = "UNPROCESSABLE_ENTITY";
+    HTTP_STATUS[HTTP_STATUS["INTERNAL_SERVER_ERROR"] = 500] = "INTERNAL_SERVER_ERROR";
+})(HTTP_STATUS || (exports.HTTP_STATUS = HTTP_STATUS = {}));
+;
+// Could use this....
+// https://gist.github.com/scokmen/f813c904ef79022e84ab2409574d1b45

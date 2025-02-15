@@ -1,0 +1,60 @@
+{
+	"name": "server",
+	"version": "1.0.0",
+	"description": "express server + typescript",
+	"main": "index.ts",
+	"scripts": {
+		"build": "rimraf dist && npx tsc",
+		"predev": "npm run build",
+		"dev": "nodemon index.ts",
+		"preserve": "npm run build",
+		"client": "cd ../client && npm run dev",
+		"serve": "concurrently --kill-others-on-fail \"npm run dev\" \"npm run client\" ",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"setup-project": "npm i && cd ../client && npm i"
+	},
+	"author": "Oliver Jones",
+	"license": "ISC",
+	"devDependencies": {
+		"@types/bcryptjs": "^2.4.6",
+		"@types/express": "^4.17.21",
+		"@types/jsonwebtoken": "^9.0.6",
+		"@types/lodash": "^4.17.0",
+		"@types/module-alias": "^2.0.4",
+		"@types/mongoose": "^5.11.97",
+		"@types/morgan": "^1.9.9",
+		"@types/node": "^20.12.7",
+		"@types/validator": "^13.11.9",
+		"concurrently": "^8.0.1",
+		"nodemon": "^2.0.22",
+		"rimraf": "^5.0.5",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.4.5"
+	},
+	"dependencies": {
+		"bcryptjs": "^2.4.3",
+		"body-parser": "^1.20.2",
+		"colors": "^1.4.0",
+		"cors": "^2.8.5",
+		"dotenv": "^16.0.3",
+		"express": "^4.18.2",
+		"express-async-handler": "^1.2.0",
+		"jsonwebtoken": "^9.0.0",
+		"lodash": "^4.17.21",
+		"module-alias": "^2.2.3",
+		"mongoose": "^7.2.1",
+		"morgan": "^1.10.0",
+		"validator": "^13.9.0"
+	},
+	"_moduleAliases": {
+		"types": "dist/types",
+		"utils": "dist/utils",
+		"routes": "dist/routes",
+		"models": "dist/models",
+		"middleware": "dist/middleware",
+		"errors": "dist/errors",
+		"data": "dist/data",
+		"controllers": "dist/controllers",
+		"connect": "dist/connect"
+	}
+}
