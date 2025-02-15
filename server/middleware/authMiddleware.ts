@@ -1,39 +1,47 @@
-import asyncHandler from 'express-async-handler';
-import { HTTP_STATUS } from 'data';
+import asyncHandler from "express-async-handler";
+import { HTTP_STATUS } from "data";
 
 // Type imports
-import { Response, RequestHandler } from 'express';
-import { AuthRequest } from 'types';
+import { Response, RequestHandler } from "express";
 
 // Helper Functions
-import { verifyToken } from 'utils';
+import { verifyToken } from "utils";
 
 // Error handlers
-import { UnauthenticatedError } from 'errors';
+import { UnauthenticatedError } from "errors";
+import { User } from "models";
 
 const sendNoAuth = (response: Response, msg: string) => {
-	response.status(HTTP_STATUS.UNAUTHORIZED);
-	throw new UnauthenticatedError(msg);
+  response.status(HTTP_STATUS.UNAUTHORIZED);
+  throw new UnauthenticatedError(msg);
 };
 
 export const protectRoute: RequestHandler = asyncHandler(
-	async (req: AuthRequest, res, next) => {
-		const authHeader = req.headers.authorization;
-		if (!authHeader) {
-			sendNoAuth(res, 'Authentication failed');
-		}
+  async (req, res, next) => {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+      sendNoAuth(res, "Authentication failed");
+    }
 
-		if (authHeader && authHeader.startsWith('Bearer')) {
-			try {
-				const token = authHeader.split(' ')[1];
-				const decoded = verifyToken(token);
-				req.user = { id: decoded.id };
-				next();
-			} catch (err) {
-				sendNoAuth(res, 'Authentication failed');
-			}
-		} else {
-			sendNoAuth(res, 'Not authorized, please try again or login.');
-		}
-	}
+    if (authHeader && authHeader.startsWith("Bearer")) {
+      try {
+        const token = authHeader.split(" ")[1];
+        const decoded = verifyToken(token);
+
+        const user = await User.findById(decoded.id).select("-password");
+
+        if (!user) {
+          sendNoAuth(res, "Authentication failed");
+          return;
+        }
+
+        req.user = user;
+        next();
+      } catch (err) {
+        sendNoAuth(res, "Authentication failed");
+      }
+    } else {
+      sendNoAuth(res, "Not authorized, please try again or login.");
+    }
+  }
 );

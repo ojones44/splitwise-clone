@@ -1,23 +1,16 @@
-import express, { Router } from 'express';
+import express, { Router } from "express";
 
-import {
-	getUsers,
-	login,
-	register,
-	updateUser,
-	updatePassword,
-	deleteUser,
-} from 'controllers';
+import { Auth } from "controllers";
 
-import { protectRoute } from 'middleware';
+import { protectRoute } from "middleware";
 
 const router: Router = express.Router();
 
-router.get('/', protectRoute, getUsers);
-router.post('/login', login);
-router.post('/register', register);
-router.put('/:id', protectRoute, updateUser);
-router.put('/password/:id', protectRoute, updatePassword);
-router.delete('/:id', protectRoute, deleteUser);
+router.get("/", protectRoute, Auth.getUsers);
+router.post("/login", Auth.login);
+router.post("/register", Auth.register);
+router.put("/:id", protectRoute, Auth.update);
+router.put("/password/:id", protectRoute, Auth.updatePassword);
+router.delete("/:id", protectRoute, Auth.remove);
 
 export { router as authRoutes };

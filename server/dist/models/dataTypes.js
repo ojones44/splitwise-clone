@@ -6,13 +6,14 @@ exports.requiredString = {
     type: String,
     required: true,
 };
-exports.requiredNameString = {
+const requiredNameString = (options) => ({
     type: String,
     required: true,
-    minlength: 2,
-    maxlength: 20,
+    minlength: (options === null || options === void 0 ? void 0 : options.min) || 2,
+    maxlength: (options === null || options === void 0 ? void 0 : options.max) || 20,
     trim: true,
-};
+});
+exports.requiredNameString = requiredNameString;
 exports.requiredEmailString = {
     type: String,
     required: true,

@@ -15,3 +15,5 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./authRoutes"), exports);
+__exportStar(require("./expenseRoutes"), exports);
+__exportStar(require("./groupRoutes"), exports);

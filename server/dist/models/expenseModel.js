@@ -23,7 +23,20 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Group = exports.Expense = exports.Auth = void 0;
-exports.Auth = __importStar(require("./authController"));
-exports.Expense = __importStar(require("./expenseController"));
-exports.Group = __importStar(require("./groupController"));
+exports.Expense = void 0;
+// Mongoose import
+const mongoose_1 = __importStar(require("mongoose"));
+// Data types import
+const dataTypes_1 = require("./dataTypes");
+// Create new schema
+const expenseSchema = new mongoose_1.Schema({
+    name: (0, dataTypes_1.requiredNameString)({ max: 50 }),
+    balance: { type: Number, required: true, min: 0 },
+    paidBy: [{ type: mongoose_1.Schema.Types.ObjectId, ref: "User", required: true }],
+    debtors: [{ type: mongoose_1.Schema.Types.ObjectId, ref: "User", required: true }],
+    groupId: { type: mongoose_1.Schema.Types.ObjectId, ref: "Group", required: true },
+}, {
+    timestamps: true,
+});
+// Create mongoose model
+exports.Expense = mongoose_1.default.model("Expense", expenseSchema);

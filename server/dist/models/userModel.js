@@ -28,15 +28,26 @@ exports.User = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 // Data types import
 const dataTypes_1 = require("./dataTypes");
-// User model
-const userModel = {
-    name: dataTypes_1.requiredNameString,
+// Create new schema
+const userSchema = new mongoose_1.Schema({
+    name: (0, dataTypes_1.requiredNameString)(),
     email: dataTypes_1.requiredEmailString,
     password: dataTypes_1.requiredPasswordString,
-};
-// Create new schema
-const userSchema = new mongoose_1.Schema(userModel, {
+    groups: [{ type: mongoose_1.Schema.Types.ObjectId, ref: "Group" }],
+}, {
     timestamps: true,
+    toObject: {
+        transform(_doc, ret) {
+            delete ret.password;
+            delete ret.__v;
+        },
+    },
+    toJSON: {
+        transform(_doc, ret) {
+            delete ret.password;
+            delete ret.__v;
+        },
+    },
 });
 // Create mongoose model
-exports.User = mongoose_1.default.model('User', userSchema);
+exports.User = mongoose_1.default.model("User", userSchema);
