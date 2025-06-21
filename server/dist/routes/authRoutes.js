@@ -10,6 +10,7 @@ const middleware_1 = require("middleware");
 const router = express_1.default.Router();
 exports.authRoutes = router;
 router.get("/", middleware_1.protectRoute, controllers_1.Auth.getUsers);
+router.get("/validate", middleware_1.protectRoute, controllers_1.Auth.validateUser);
 router.post("/login", controllers_1.Auth.login);
 router.post("/register", controllers_1.Auth.register);
 router.put("/:id", middleware_1.protectRoute, controllers_1.Auth.update);

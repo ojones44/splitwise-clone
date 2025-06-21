@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import colors from "colors";
+import cors from "cors";
 import "module-alias/register";
 
 // Database
@@ -14,13 +15,15 @@ import { endpoints } from "data";
 import { authRoutes, expenseRoutes, groupRoutes } from "routes";
 
 // Middleware
-import { notFoundMiddleware, errorMiddleware } from "middleware";
+import { notFoundMiddleware, errorMiddleware, protectRoute } from "middleware";
 
 dotenv.config();
 
 connectDB();
 
 const app: Express = express();
+
+app.use(cors());
 
 // Log response status codes in the console during development
 if (process.env.NODE_ENV !== "production") {
@@ -39,8 +42,8 @@ app.get("/api/test", (_req: Request, res: Response) => {
 
 // Any time these routes are hit, route file is called
 app.use(endpoints.auth, authRoutes);
-app.use(endpoints.expense, expenseRoutes);
-app.use(endpoints.group, groupRoutes);
+app.use(endpoints.expense, protectRoute, expenseRoutes);
+app.use(endpoints.group, protectRoute, groupRoutes);
 
 // Looking for route not matched errors
 app.use(notFoundMiddleware);

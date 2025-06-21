@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.remove = exports.updatePassword = exports.update = exports.register = exports.login = exports.getUsers = void 0;
+exports.validateUser = exports.remove = exports.updatePassword = exports.update = exports.register = exports.login = exports.getUsers = void 0;
 // Imports
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const data_1 = require("data");
@@ -165,4 +165,11 @@ exports.remove = (0, express_async_handler_1.default)((req, res, next) => __awai
     catch (error) {
         next(error);
     }
+}));
+exports.validateUser = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = req.user;
+    res.status(data_1.HTTP_STATUS.OK).json({
+        user: user.toObject(),
+        token: (0, utils_1.generateToken)(user.id),
+    });
 }));

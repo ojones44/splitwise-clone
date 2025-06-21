@@ -185,3 +185,12 @@ export const remove = asyncHandler(async (req, res, next) => {
     next(error);
   }
 });
+
+export const validateUser = asyncHandler(async (req, res) => {
+  const user = req.user!;
+
+  res.status(HTTP_STATUS.OK).json({
+    user: user.toObject(),
+    token: generateToken(user.id),
+  });
+});

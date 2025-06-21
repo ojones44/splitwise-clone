@@ -1,25 +1,31 @@
-import { categories } from '../utils/categories';
+import { categories } from "../utils/categories";
 
-export type CategoryName = 'holiday' | 'food' | 'home' | 'other';
+export type CategoryName = "holiday" | "food" | "home" | "other";
 export type CategoryIcon = React.ReactNode;
 
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
 export interface Category {
-	name: string;
-	colour: string;
-	icons: CategoryIcon[];
+  name: string;
+  colour: string;
+  icons: CategoryIcon[];
 }
 
 export interface GroupData {
-	id: string;
-	name: string;
-	category: keyof typeof categories;
-	status: string;
+  id: string;
+  name: string;
+  category: keyof typeof categories;
+  status: string;
 }
 
 export interface AddExpense {
-	date: Date;
-	userId: string;
-	groupId: string;
-	description: string;
-	amount: number;
+  date: Date;
+  userId: string;
+  groupId: string;
+  description: string;
+  amount: number;
 }

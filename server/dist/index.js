@@ -9,6 +9,7 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const morgan_1 = __importDefault(require("morgan"));
 const colors_1 = __importDefault(require("colors"));
+const cors_1 = __importDefault(require("cors"));
 require("module-alias/register");
 // Database
 const index_1 = require("connect/index");
@@ -20,6 +21,7 @@ const middleware_1 = require("middleware");
 dotenv_1.default.config();
 (0, index_1.connectDB)();
 const app = (0, express_1.default)();
+app.use((0, cors_1.default)());
 // Log response status codes in the console during development
 if (process.env.NODE_ENV !== "production") {
     app.use((0, morgan_1.default)("dev"));
@@ -33,8 +35,8 @@ app.get("/api/test", (_req, res) => {
 });
 // Any time these routes are hit, route file is called
 app.use(data_1.endpoints.auth, routes_1.authRoutes);
-app.use(data_1.endpoints.expense, routes_1.expenseRoutes);
-app.use(data_1.endpoints.group, routes_1.groupRoutes);
+app.use(data_1.endpoints.expense, middleware_1.protectRoute, routes_1.expenseRoutes);
+app.use(data_1.endpoints.group, middleware_1.protectRoute, routes_1.groupRoutes);
 // Looking for route not matched errors
 app.use(middleware_1.notFoundMiddleware);
 // Looking for errors inside existing route
