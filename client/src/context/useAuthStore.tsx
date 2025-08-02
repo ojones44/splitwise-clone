@@ -27,7 +27,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
     if (endpoint === "login") {
       try {
         const response = await axios.post(
-          `http://localhost:5001/api/auth/${endpoint}`,
+          `${import.meta.env.VITE_API_BASE_URL}/api/auth/${endpoint}`,
           formData
         );
 
