@@ -17,7 +17,7 @@ export const useValidate = (children: React.ReactNode) => {
   const isAuthenticated = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5001/api/auth/validate",
+        `${import.meta.env.VITE_API_BASE_URL}/api/auth/validate`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
