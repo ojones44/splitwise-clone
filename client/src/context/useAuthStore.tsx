@@ -1,49 +1,37 @@
-import axios from "axios";
-import { create } from "zustand";
-import { User } from "../types/interfaces";
+import axios from 'axios';
+import { create } from 'zustand';
+import { User } from '../types/interfaces';
+
+// type imports
+import { AuthStore } from '../types/interfaces';
 
 const addTokenToLocalStorage = (token: string) =>
-  localStorage.setItem("token", token);
-
-type FormData = {
-  email: string;
-  password: string;
-};
-
-type Endpoint = "login" | "register";
-
-interface AuthStore {
-  user: null | User;
-  setUser: (user: User) => void;
-  token: null | string;
-  authenticate: (formData: FormData, type?: Endpoint) => Promise<void>;
-}
+	localStorage.setItem('token', token);
 
 export const useAuthStore = create<AuthStore>((set) => ({
-  user: null,
-  token: null,
-  setUser: (user: User) => set({ user }),
-  authenticate: async (formData, endpoint = "login") => {
-    if (endpoint === "login") {
-      try {
-        const response = await axios.post(
-          `http://localhost:5001/api/auth/${endpoint}`,
-          formData
-        );
+	user: null,
+	token: null,
+	setUser: (user: User) => set({ user }),
+	authenticate: async (formData, endpoint = 'login') => {
+		try {
+			const response = await axios.post(
+				`http://localhost:5001/api/auth/${endpoint}`,
+				formData
+			);
 
-        const { user, token } = response.data;
+			const { user, token } = response.data;
 
-        console.log("data", response.data);
+			console.log('data', response.data);
 
-        set({ user, token });
+			set({ user, token });
 
-        addTokenToLocalStorage(token);
-      } catch (error) {
-        console.error("Authentication failed:", error);
-      }
-    }
-
-    // if (endpoint === "register") {
-    // }
-  },
+			addTokenToLocalStorage(token);
+		} catch (error) {
+			if (axios.isAxiosError(error)) {
+				throw new Error(error.response?.data?.message);
+			} else {
+				throw new Error(error?.message || 'Something went wrong');
+			}
+		}
+	},
 }));
